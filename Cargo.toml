@@ -4,3 +4,5 @@ version = "0.1.0"
 authors = ["Alex Ashley <alexashley15@gmail.com>"]
 
 [dependencies]
+iron = "0.6.0"
+router = "0.6.0"

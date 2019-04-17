@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  oidctest:
+    build:
+      context: oidctest
+      dockerfile: docker/op_test/Dockerfile
+    ports:
+      - "60000-60010:60000-60010"
+  ipseity:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
