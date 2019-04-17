@@ -1,0 +1,6 @@
+[package]
+name = "ipseity"
+version = "0.1.0"
+authors = ["Alex Ashley <alexashley15@gmail.com>"]
+
+[dependencies]
