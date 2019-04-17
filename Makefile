@@ -1,8 +1,9 @@
-.PHONY: env env-down
+.PHONY: env env-down run
 MAKEFLAGS += --silent
+.DEFAULT_GOAL := run
 
-default:
-	echo "No default target"
+run:
+	cargo run
 
 env:
 	./scripts/oidctest-init.sh
