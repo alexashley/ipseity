@@ -1,9 +1,9 @@
-.PHONY: env env-down run
+.PHONY: build env env-down
 MAKEFLAGS += --silent
-.DEFAULT_GOAL := run
+.DEFAULT_GOAL := build
 
-run:
-	cargo run
+build:
+	cargo build -q
 
 env:
 	./scripts/oidctest-init.sh
