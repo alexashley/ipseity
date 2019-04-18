@@ -1,6 +1,3 @@
-extern crate iron;
-extern crate time;
-
 use iron::prelude::*;
 use iron::{BeforeMiddleware, AfterMiddleware, typemap};
 use server::middleware::correlation::Correlation;

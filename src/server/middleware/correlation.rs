@@ -1,6 +1,3 @@
-extern crate iron;
-extern crate uuid;
-
 use iron::prelude::*;
 use iron::{BeforeMiddleware, typemap};
 use uuid::Uuid;
