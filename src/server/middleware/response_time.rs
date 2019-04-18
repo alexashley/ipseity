@@ -21,7 +21,9 @@ impl AfterMiddleware for ResponseTime {
     fn after(&self, req: &mut Request, res: Response) -> IronResult<Response> {
         let delta = time::precise_time_ns() - *req.extensions.get::<ResponseTime>().unwrap();
         let correlation_id = *req.extensions.get::<Correlation>().unwrap();
-        println!("Request ({}) took: {} ms", correlation_id, (delta as f64) / 1000000.0);
+
+       info!("(correlation_id: {}) took: {} ms", correlation_id, (delta as f64) / 1000000.0);
+
         Ok(res)
     }
 }

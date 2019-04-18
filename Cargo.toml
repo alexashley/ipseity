@@ -7,5 +7,8 @@ authors = ["Alex Ashley <alexashley15@gmail.com>"]
 iron = "0.6.0"
 router = "0.6.0"
 uuid =  { version = "0.7.4", features = ["v4"] }
+slog = "2.4.1"
 slog-term = "2.4.0"
+slog-scope = "4.1.1"
+slog-async = "2.3.0"
 time = "0.1.42"
