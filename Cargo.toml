@@ -6,3 +6,6 @@ authors = ["Alex Ashley <alexashley15@gmail.com>"]
 [dependencies]
 iron = "0.6.0"
 router = "0.6.0"
+uuid =  { version = "0.7.4", features = ["v4"] }
+slog-term = "2.4.0"
+time = "0.1.42"
