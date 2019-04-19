@@ -12,6 +12,7 @@ pub fn route() -> Chain {
 
     chain.link_before(server::middleware::response_time::ResponseTime)
         .link_before(server::middleware::correlation::Correlation)
+        .link_before(server::middleware::request_metadata::RequestMetadata)
         .link_after(server::middleware::response_time::ResponseTime);
 
     chain
