@@ -72,6 +72,8 @@ impl BeforeMiddleware for ClientAuthentication {
             return Ok(());
         }
 
+        info!("{} client authentication failed", correlation_id);
+
         return Err(
             IronError {
                 error: Box::new(ClientAuthenticationError),
