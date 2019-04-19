@@ -1,10 +1,5 @@
 use url::{Url};
-
-#[derive(Debug)]
-pub enum ClientType {
-    Public,
-    Confidential
-}
+use domain::oidc::enums::ClientType;
 
 #[derive(Debug)]
 pub struct Client {
