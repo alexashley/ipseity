@@ -12,8 +12,6 @@ impl BeforeMiddleware for Correlation {
 
         req.extensions.insert::<Correlation>(correlation_id);
 
-        println!("{}", correlation_id);
-
         Ok(())
     }
 }

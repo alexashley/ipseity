@@ -1,6 +1,18 @@
 use iron::prelude::*;
 use iron::status;
 
-pub fn handler(_req: &mut Request) -> IronResult<Response> {
+use server;
+
+pub fn request_handler(_req: &mut Request) -> IronResult<Response> {
     Ok(Response::with((status::Ok, "PONG")))
+}
+
+pub fn route() -> Chain {
+    let mut chain = Chain::new(request_handler);
+
+    chain.link_before(server::middleware::response_time::ResponseTime)
+        .link_before(server::middleware::correlation::Correlation)
+        .link_after(server::middleware::response_time::ResponseTime);
+
+    chain
 }

@@ -19,7 +19,7 @@ impl AfterMiddleware for ResponseTime {
         let delta = time::precise_time_ns() - *req.extensions.get::<ResponseTime>().unwrap();
         let correlation_id = *req.extensions.get::<Correlation>().unwrap();
 
-       info!("(correlation_id: {}) took: {} ms", correlation_id, (delta as f64) / 1000000.0);
+       info!("{} request finished in {} ms", correlation_id, (delta as f64) / 1000000.0);
 
         Ok(res)
     }
