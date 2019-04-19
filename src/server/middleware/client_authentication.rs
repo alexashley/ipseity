@@ -1,6 +1,5 @@
 use std::error::Error;
 use std::fmt;
-use iron::status;
 use iron::prelude::*;
 use iron::{BeforeMiddleware, typemap};
 use domain::oidc::client::Client;

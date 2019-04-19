@@ -1,5 +1,5 @@
 use iron::prelude::*;
-use iron::{BeforeMiddleware, AfterMiddleware, typemap};
+use iron::{BeforeMiddleware};
 use server::middleware::correlation::Correlation;
 
 pub struct RequestMetadata;
