@@ -14,4 +14,9 @@ pub enum GrantType {
     ResourceOwnerCredentials
 }
 
+#[derive(Debug)]
+pub enum Algorithm {
+    RS256
+}
+
 

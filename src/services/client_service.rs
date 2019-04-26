@@ -18,7 +18,7 @@ lazy_static! {
     );
 }
 
-pub fn authenticate_client(client: &client::Client, client_secret: Option<&String>) -> bool {
+pub fn authenticate_client(client: &client::Client, client_secret: Option<String>) -> bool {
     match client.client_type {
         enums::ClientType::Public => { true }
         enums::ClientType::Confidential => {
@@ -29,6 +29,6 @@ pub fn authenticate_client(client: &client::Client, client_secret: Option<&Strin
     }
 }
 
-pub fn get_client_by_id(client_id: &String) -> Option<&'static client::Client> {
-    CLIENTS.iter().find(|client| client.client_id == *client_id)
+pub fn get_client_by_id(client_id: String) -> Option<&'static client::Client> {
+    CLIENTS.iter().find(|client| client.client_id == client_id)
 }

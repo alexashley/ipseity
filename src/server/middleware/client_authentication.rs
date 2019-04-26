@@ -6,6 +6,7 @@ use domain::oidc::client::Client;
 use services::client_service;
 use server::middleware::correlation::Correlation;
 use params::{Params, Value};
+use core::borrow::Borrow;
 
 pub struct ClientAuthentication;
 
@@ -26,19 +27,34 @@ impl Error for ClientAuthenticationError {
     }
 }
 
+fn get_str(req: &mut Request, s: String) -> Option<String> {
+    let p = req.get_ref::<Params>().unwrap();
+
+    match p.find(&[s.as_str()]) {
+        Some(&Value::String(ref secret)) => Some(secret.to_string()),
+        _ => None
+    }
+}
+
 impl BeforeMiddleware for ClientAuthentication {
     fn before(&self, req: &mut Request) -> IronResult<()> {
         let correlation_id = *req.extensions.get::<Correlation>().unwrap();
-        let p = req.get_ref::<Params>().unwrap();
 
-        let client_id = match p.find(&["client_id"]) {
-            Some(&Value::String(ref id)) => Some(id),
-            _ => None
-        };
-        let client_secret = match p.find(&["client_secret"]) {
-            Some(&Value::String(ref secret)) => Some(secret),
-            _ => None
-        };
+        let mut client_id = get_str(req, String::from("client_id"));
+        let mut client_secret = get_str(req, String::from("client_secret"));;
+
+//        {
+//            let p = req.get_ref::<Params>().unwrap();
+//
+//            client_id = match p.find(&["client_id"]) {
+//                Some(&Value::String(ref id)) => Some(id),
+//                _ => None
+//            };
+//            client_secret = match p.find(&["client_secret"]) {
+//                Some(&Value::String(ref secret)) => Some(secret),
+//                _ => None
+//            };
+//        }
 
         if client_id.is_none() {
             return Err(
@@ -51,7 +67,7 @@ impl BeforeMiddleware for ClientAuthentication {
 
         let client_id = client_id.unwrap();
 
-        let client = client_service::get_client_by_id(client_id);
+        let client = client_service::get_client_by_id(client_id.clone());
 
         if client.is_none() {
             info!("{} client {} not found", correlation_id, client_id);
@@ -68,6 +84,8 @@ impl BeforeMiddleware for ClientAuthentication {
         info!("{} client {} identified", correlation_id, client_id);
 
         if client_service::authenticate_client(client, client_secret) {
+            req.extensions.insert::<ClientAuthentication>(client);
+
             return Ok(());
         }
 
@@ -81,3 +99,4 @@ impl BeforeMiddleware for ClientAuthentication {
         );
     }
 }
+
